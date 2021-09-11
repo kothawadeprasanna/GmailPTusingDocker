@@ -1,7 +1,7 @@
 
 #  Gmail API testing using Jmeter
 
-Hi - Here, we will create Jmeter script for gmail API and create a docker image for the same. We will also use that to execute and generate report.
+Hi :wave:- Here, we will create Jmeter script for gmail API and create a docker image for the same. We will also use that to execute and generate report.
 
 
 
@@ -59,8 +59,11 @@ Or
 ```
 
 ## Script description
+
     <details>
+    
       <summary>Script description</summary>
+      
           <p>Script contains two thread groups - 
           "Thread group: Positive" for positive scenario where http: 200 response code is expected 
           and "Thread group: Negative" for negative scenario where older token is passed to get the http: 401 response code. 
@@ -75,14 +78,17 @@ Or
           </p>
         
     </details>
-     <details>
+    
+    <details>
+    
       <summary>Script Logic</summary>
+      
           <p>In positive test scenario we require Access token to test the gmail -/users/draft API.
           This Access token generation API requires Refresh token and client_id,client_secret. In reposne to this API we get access token, which we use in next request.  
           The access token is valid for only 1 hr and need to regenerate upon expiry. 
           Entire script is very much configurable based on the defined properties and variables. 
           </p>
-          
+      
     </details>
 
 ## Execution
@@ -115,12 +121,12 @@ docker run pkothawade/jmeterforgmail -n -t GmailAPI.jmx -JMaxUsers=5 -JRampUp=5 
 
 ## Analyse results:
 
-EXECUTE TEST:
+*EXECUTE TEST:*
 ```bash
   docker run pkothawade/jmeterforgmail -n -t GmailAPI.jmx -JMaxUsers=5 -JRampUp=5 -JNMaxUsers=5 -JNRampUp=5 -Jduration=30
    -JTestDataFile1='userId.csv'  -l Gmail-5-results.jtl -j jmeter.log -e -o HtmlReport
 ```
-ANALYSE RESULT:
+*ANALYSE RESULT:*
 ```bash
   Get the docker container id :
   docker ps -a
