@@ -1,0 +1,68 @@
+Requirement: 
+1. Create Jmeter script for https://googleapis.com/gmail/v1/users/{userId}/drafts 
+As this API does not exists: using https://gmail.googleapis.com/gmail/v1/users/{userId}/drafts 
+Create own google project and generate the auth token.  
+2. Test data required- Valid Gmail ids and password for userID parameter- IS it safe to share gmail id and access key , auth token 
+3. This API requires Access Token and API key to access. For showcasing I have used my personal Gmail keys. 
+4. What is the meaning of Negative scenario in the assignment? In performance term- negative means where performance is degraded. For now- I have set threashold as 500 msec, if response time is more than 500ms it will mark that request as fail. 
+5. Create Step wise document from Jmeter intsallation till execution in docker, and report analysis. 
+6. If Docker is not mandatory can I showcase it on the physical machine? 
+
+Questions: 
+1. Nature of the work. - Ongoing company and looking for actual employee. so long term work. 
+2. What is the duration of the project. 
+3. What is timezone I should work. 
+4. Is there requriement to be online during EST timezone? 
+5. Salary descussion 
+6. Whome should I deliver the project. 
+7. Give me email ids which requires the Git repo access. 
+
+
+Project : GmailApi
+client_id=1003165257394-4rjl57gem3jr0dman6rsda660593ef4d.apps.googleusercontent.com
+client_secret=kU_6RgzxnRIGsw1cs0SMdDXY
+refresh_token=1//0ggvVVhUTEWGaCgYIARAAGBASNwF-L9IrPzkfuPGdhrQvQISowUjemncEbgCaPc6pEqfzg4t9rzv36zHFMXNGPMFx3Aua-CZ50Dc
+
+scope: /auth/gmail.readonly
+
+List Of APIS: 
+1. GET Autherization token- One time - can not be automated as it requires allow button to click manually. 
+Request:
+https://accounts.google.com/o/oauth2/auth?client_id=1003165257394-4rjl57gem3jr0dman6rsda660593ef4d.apps.googleusercontent.com&redirect_uri=http://localhost&response_type=code&scope=https://www.googleapis.com/auth/gmail.readonly&access_type=offline
+
+Response:
+http://localhost/?
+code=4/0AX4XfWirkcITX2nwNN1ghPXPexpRHkdPpWm7rUqIWjvydB6D9yWy8e1afVgxOVHbTEqPpg
+scope=https://www.googleapis.com/auth/gmail.readonly
+
+
+2. POST : Get refresh Token 
+https://oauth2.googleapis.com/token
+code=4/0AX4XfWirkcITX2nwNN1ghPXPexpRHkdPpWm7rUqIWjvydB6D9yWy8e1afVgxOVHbTEqPpg
+Client ID=1003165257394-4rjl57gem3jr0dman6rsda660593ef4d.apps.googleusercontent.com
+Client secret=kU_6RgzxnRIGsw1cs0SMdDXY
+redirect_uri=http://localhost
+grant_type=authorization_code
+
+Response: {
+  "access_token": "ya29.a0ARrdaM-ez9rCFe1EkDTpeElVvElCfBR_7ALXErg60lqEN1-eGGvLWisSWNYpHNboyqedBTlIUeGFJ2hXNc4qnLJnLQrZMO_I9Z7UqQQpUVlPsNEtu6M59D-r2-EdK6nOHJNmdsJwHDXwZoWgzmnPL87vuwUE",
+  "expires_in": 3599,
+  "refresh_token": "1//0ggvVVhUTEWGaCgYIARAAGBASNwF-L9IrPzkfuPGdhrQvQISowUjemncEbgCaPc6pEqfzg4t9rzv36zHFMXNGPMFx3Aua-CZ50Dc",
+  "scope": "https://www.googleapis.com/auth/gmail.readonly",
+  "token_type": "Bearer"
+}
+
+3. POST : get access token 
+https://oauth2.googleapis.com/token
+client_id=1003165257394-4rjl57gem3jr0dman6rsda660593ef4d.apps.googleusercontent.com
+client_secret=kU_6RgzxnRIGsw1cs0SMdDXY
+refresh_token=1//0ggvVVhUTEWGaCgYIARAAGBASNwF-L9IrPzkfuPGdhrQvQISowUjemncEbgCaPc6pEqfzg4t9rzv36zHFMXNGPMFx3Aua-CZ50Dc
+grant_type=refresh_token
+
+Response:
+{
+  "access_token": "ya29.a0ARrdaM_Fz8wpmjpfnj4rRR-b9KVPuk6DO06deTjUmdzWCbjjwfDfCAKMnBGPacfUneJ8ql6FL8dz-FlFOgSgsyiNQWl3EM6dNU7NhY-2o8VEaslYB5CrwsFnI9pv5JHn5cM26FV1vPRpovkbokKx8CfBR_sM",
+  "expires_in": 3599,
+  "scope": "https://www.googleapis.com/auth/gmail.readonly",
+  "token_type": "Bearer"
+}
