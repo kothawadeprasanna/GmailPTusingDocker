@@ -1,7 +1,8 @@
 
 #  Gmail API testing using Jmeter
 
-Hi :wave:- Here, we will create Jmeter script for gmail API and create a docker image for the same. We will also use that to execute and generate report.
+Hi :wave:
+Here, we will create Jmeter script for gmail API and create a docker image for the same. We will also use that to execute and generate report.
 
 
 
@@ -31,19 +32,19 @@ This API requires Requires one of the following OAuth scopes:
 * https://www.googleapis.com/auth/gmail.readonly
 
 ### OAuth2 Token generation
-To access the above API user need to pass the access token. Which is valid for 3599 sec. So, user will need to generate that every hour. 
+To access the above API, user needs to pass the access token. This token is valid for 3599 sec. So, user needs to generate that every hour. 
 
 Follow this page to setup and create access token:
 * [Using OAuth 2.0 to Access Google APIs](https://developers.google.com/identity/protocols/oauth2)
 
-Below is short summary to setup OAuth2: 
+Below is the short summary to setup OAuth2: 
   1. Obtain OAuth 2. 0 credentials from the Google API Console. ...
   2. Obtain an access token from the Google Authorization Server. ...
   3. Examine scopes of access granted by the user. ...
   4. Send the access token to an API. ...
   5. Generate Refresh access token.
   
-  As refresh token can be used for longer duration upto 6 months. So, we will use that to generate the Access token. 
+  As refresh token can be used for longer duration upto 6 months. We will use that to generate the Access token. 
   
 ## Software Installations
 
@@ -55,38 +56,43 @@ Or
 
 * Use docker image containing required script and testdata.  
 
- [PULL IMAGE](https://hub.docker.com/r/pkothawade/jmeterforgmail)
+ [DOCKER IMAGE](https://hub.docker.com/r/pkothawade/jmeterforgmail)
 
 ```bash
   docker pull pkothawade/jmeterforgmail
 ```
 
-## Script description
+## Script Description
+
 
 <details>
-  <summary>Script description</summary>
+  <summary>Script description!</summary>
   
-  <p>Script contains two thread groups - 
-      * "Thread group: Positive" for positive scenario where http: 200 response code is expected 
-      * "Thread group: Negative" for negative scenario where older token is passed to get the http: 401 response code. 
-  </p>
-  <p>List of variables- 
-   
-
-  </p>
-        
+  ### Script contains two thread groups :
+  1. "Thread group: Positive" for positive scenario where http: 200 response code is expected.
+  2. "Thread group: Negative" for negative scenario where older token is passed to get the http: 401 response code.
+  
+  ### List of variables :
+  * BASE_URL_1: Domain. This property can be modified from outside
+  * TestDataFile1: CSV test data file name . This property can be modified from outside.
+	* tokenexpirytime: Time duration after which new access token will be generated. This property can be modified from outside. Max value is 3599 sec. 
+  * isexpired: Based on this flag, access token generation request is controlled.
 </details>
     
 <details>    
   <summary>Script Logic</summary>
-
-    <p>In positive test scenario we require Access token to test the gmail -/users/draft API.
-    This Access token generation API requires Refresh token and client_id,client_secret. In reposne to this API we get access token, which we use in next request.  
-    The access token is valid for only 1 hr and need to regenerate upon expiry. 
-    Entire script is very much configurable based on the defined properties and variables. 
-    </p>
-    
+  
+  In positive test scenario we require Access token to test the gmail /users/draft API.
+  <br></br>
+  #Access Token generation logic#: Based on the "isexpired" flag this request is controlled. Default value is set to "true", so that in the first iteration of each thread it gets 
+called. When fresh "Access Token" is generated, this flag is set to false in postprocessor and token generation time is stored in variable. As a response to access token generation 
+request, dynamic access token is captured and passed to next request. 
+  <br></br>  
+    After /users/draft API, age of the token is calculated, if it is less than the "tokenexpirytime", "isexpired" flag is set to be "false". So, that in the next iteration access 
+token generation request does not get called. If age of the token is more than the "tokenexpirytime", "isexpired" flag is set to be "true". So, that in the next iteration access 
+token generation request does get called. So, after every API called, token age is calculated and based on the tokenexpirytime set- fresh token is generated. 
 </details>
+
 
 ## Execution
 ### Running Tests in machine using raw .jmx file
@@ -96,7 +102,7 @@ To run tests, run the following command
 Execute below command to run the test. Modify commnad as per your requirement.
 ```bash
   jmeter -n -t GmailAPI.jmx -JMaxUsers=5 -JRampUp=5 -JNMaxUsers=5 -JNRampUp=5
-   -Jduration=30 -JTestDataFile1='userId.csv'  -l Gmail-5-results.jtl -j jmeter.log -e -o HtmlReport
+   -Jduration=300 -JTestDataFile1='userId.csv'  -l Gmail-5-results.jtl -j jmeter.log -e -o HtmlReport
 ```
 Below properties can be passed externally:
 1. MaxUsers: Postive scenario max thread number
@@ -143,11 +149,10 @@ docker run pkothawade/jmeterforgmail -n -t GmailAPI.jmx -JMaxUsers=5 -JRampUp=5 
 ## Documentation
 
 [API reference](https://developers.google.com/gmail/api/reference/rest/v1/users.drafts/list)
-
+[Jmeter Installation guide](https://www.blazemeter.com/blog/how-get-started-jmeter-installation-test-plans/)
+[Docker installation](https://docs.docker.com/engine/install/)
+[Docker commands](https://www.docker.com/sites/default/files/d8/2019-09/docker-cheat-sheet.pdf)
   
-## Authors
+## Author
 
-- [@Prasanna Kothawade](https://github.com/kothawadeprasanna)
-
-
-  
+- [@Prasanna Kothawade](https://github.com/kothawadeprasanna)  
