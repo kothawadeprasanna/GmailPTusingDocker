@@ -48,48 +48,45 @@ Below is short summary to setup OAuth2:
 ## Software Installations
 
 To run this user needs below softwares to be installed
-1. [JAVA](https://positive-stud.medium.com/step-by-step-guide-to-install-java-on-windows-pc-c85e7778c14c) 
-2. [JMETER](https://www.guru99.com/guide-to-install-jmeter.html)
+* [JAVA](https://positive-stud.medium.com/step-by-step-guide-to-install-java-on-windows-pc-c85e7778c14c) 
+* [JMETER](https://www.guru99.com/guide-to-install-jmeter.html)
+
 Or 
-1. Use docker image containing required script and testdata.  
+
+* Use docker image containing required script and testdata.  
 
  [PULL IMAGE](https://hub.docker.com/r/pkothawade/jmeterforgmail)
+
 ```bash
   docker pull pkothawade/jmeterforgmail
 ```
 
 ## Script description
 
-    <details>
-    
-      <summary>Script description</summary>
-      
+<details>
+  <summary>Script description</summary>
+  
           <p>Script contains two thread groups - 
-          "Thread group: Positive" for positive scenario where http: 200 response code is expected 
-          and "Thread group: Negative" for negative scenario where older token is passed to get the http: 401 response code. 
+          * "Thread group: Positive" for positive scenario where http: 200 response code is expected 
+          * "Thread group: Negative" for negative scenario where older token is passed to get the http: 401 response code. 
           </p>
           <p>List of variables- 
-          1. 
-          2. 
-          3. 
-          4. 
-          5. 
+           
 
           </p>
         
-    </details>
+</details>
     
-    <details>
-    
-      <summary>Script Logic</summary>
-      
+<details>    
+  <summary>Script Logic</summary>
+  
           <p>In positive test scenario we require Access token to test the gmail -/users/draft API.
           This Access token generation API requires Refresh token and client_id,client_secret. In reposne to this API we get access token, which we use in next request.  
           The access token is valid for only 1 hr and need to regenerate upon expiry. 
           Entire script is very much configurable based on the defined properties and variables. 
           </p>
-      
-    </details>
+    
+</details>
 
 ## Execution
 ### Running Tests in machine using raw .jmx file
