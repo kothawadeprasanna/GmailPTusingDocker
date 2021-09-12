@@ -120,16 +120,16 @@ One can modify startTest.bat present in git to start test in single click. (This
 To run tests, run the following command
 
 ```bash
-docker run pkothawade/jmeterforgmail -n -t GmailAPI.jmx -JMaxUsers=5 -JRampUp=5 -JNMaxUsers=5 -JNRampUp=5 -Jduration=30
- -JTestDataFile1='userId.csv'  -l Gmail-5-results.jtl -j jmeter.log -e -o HtmlReport
+docker run pkothawade/jmeterforgmail -n -t GmailAPI.jmx -JMaxUsers=5 -JRampUp=5 -JNMaxUsers=5 -JNRampUp=5 -Jduration=300 -JTestDataFile1='userId.csv'  -l Gmail-5-results.jtl -j jmeter.log -e -o HtmlReport
+
 ```
 
 ## Analyse results:
 
 *EXECUTE TEST:*
 ```bash
-  docker run pkothawade/jmeterforgmail -n -t GmailAPI.jmx -JMaxUsers=5 -JRampUp=5 -JNMaxUsers=5 -JNRampUp=5 -Jduration=30
-   -JTestDataFile1='userId.csv'  -l Gmail-5-results.jtl -j jmeter.log -e -o HtmlReport
+docker run pkothawade/jmeterforgmail -n -t GmailAPI.jmx -JMaxUsers=5 -JRampUp=5 -JNMaxUsers=5 -JNRampUp=5 -Jduration=300 -JTestDataFile1='userId.csv'  -l Gmail-5-results.jtl -j jmeter.log -e -o HtmlReport
+
 ```
 *ANALYSE RESULT:*
 ```bash
