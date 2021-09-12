@@ -25,7 +25,7 @@
           </elementProp>
           <elementProp name="tokenexpirytime1" elementType="Argument">
             <stringProp name="Argument.name">tokenexpirytime1</stringProp>
-            <stringProp name="Argument.value">${__setProperty(tokenexpirytime,60000)}</stringProp>
+            <stringProp name="Argument.value">${__setProperty(tokenexpirytime,30000)}</stringProp>
             <stringProp name="Argument.desc">This is default 1hr time is in msec to generate the refresh token, Change this in case frequency of token generation required more</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
@@ -76,10 +76,10 @@
           <boolProp name="LoopController.continue_forever">false</boolProp>
           <intProp name="LoopController.loops">-1</intProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">${__P(MaxUsers,5)}</stringProp>
-        <stringProp name="ThreadGroup.ramp_time">${__P(RampUp,5)}</stringProp>
+        <stringProp name="ThreadGroup.num_threads">${__P(MaxUsers,1)}</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">${__P(RampUp,1)}</stringProp>
         <boolProp name="ThreadGroup.scheduler">true</boolProp>
-        <stringProp name="ThreadGroup.duration">${__P(duration,300)}</stringProp>
+        <stringProp name="ThreadGroup.duration">${__P(duration,120)}</stringProp>
         <stringProp name="ThreadGroup.delay">0</stringProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">false</boolProp>
       </ThreadGroup>
@@ -179,6 +179,7 @@ String timestamp = &quot;${__time(,)}&quot;;
 //Current script design is to generate per thread per hr. 
 vars.put(&quot;tGenerationTime&quot;,timestamp);
 log.info(&quot;access_token: &quot;+vars.get(&quot;access_token&quot;)+&quot; Generated at epoc time:&quot;+timestamp);
+vars.put(&quot;isexpired&quot;, &quot;false&quot;);
 </stringProp>
               <stringProp name="scriptLanguage">groovy</stringProp>
             </JSR223PostProcessor>
@@ -278,7 +279,7 @@ catch (Exception e) {
         <stringProp name="ThreadGroup.num_threads">${__P(NMaxUsers,1)}</stringProp>
         <stringProp name="ThreadGroup.ramp_time">${__P(NRampUp,1)}</stringProp>
         <boolProp name="ThreadGroup.scheduler">true</boolProp>
-        <stringProp name="ThreadGroup.duration">${__P(duration,300)}</stringProp>
+        <stringProp name="ThreadGroup.duration">${__P(duration,30)}</stringProp>
         <stringProp name="ThreadGroup.delay">0</stringProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">false</boolProp>
       </ThreadGroup>
