@@ -169,17 +169,20 @@
             </JSONPathAssertion>
             <hashTree/>
             <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor" enabled="true">
-              <stringProp name="cacheKey">true</stringProp>
+              <stringProp name="cacheKey">false</stringProp>
               <stringProp name="filename"></stringProp>
               <stringProp name="parameters"></stringProp>
               <stringProp name="script">// Generate timestamp
-String timestamp = &quot;${__time(,)}&quot;;
+//String timestamp = &quot;${__time(,)}&quot;;
+String timestamp = System.currentTimeMillis();
+//System.currentTimeMillis()
 
 //If we want to genrate token once for thread and common for all the threads then this needs to be set as props. 
 //Current script design is to generate per thread per hr. 
 vars.put(&quot;tGenerationTime&quot;,timestamp);
 log.info(&quot;access_token: &quot;+vars.get(&quot;access_token&quot;)+&quot; Generated at epoc time:&quot;+timestamp);
 vars.put(&quot;isexpired&quot;, &quot;false&quot;);
+timestamp=&quot;&quot;;
 </stringProp>
               <stringProp name="scriptLanguage">groovy</stringProp>
             </JSR223PostProcessor>
